@@ -63,4 +63,4 @@ function bracelets_shortcode($atts)
 add_shortcode('bracelets', 'bracelets_shortcode');
 
 
-// Shortcode 
+// Shortcode  new
