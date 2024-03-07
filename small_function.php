@@ -1,0 +1,3 @@
+<?php
+
+// Wordpress Some Functions 
