@@ -1,0 +1,56 @@
+<div id="imageContainer">
+  <input type="file" id="imageUpload" accept="image/*" multiple />
+  <div id="imagePreview"></div>
+</div>
+<button id="addAttributeBtn">Add Attribute</button>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    // Counter to keep track of added attributes
+    var attributeCounter = 0;
+
+    // Function to handle image upload and preview
+    $("#imageUpload").on("change", function () {
+      var files = $(this)[0].files;
+      $("#imagePreview").empty();
+      if (files.length > 0) {
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $("#imagePreview").append(
+              '<img src="' + e.target.result + '" alt="Image">'
+            );
+          };
+          reader.readAsDataURL(file);
+        }
+      }
+    });
+
+    // Function to add attribute
+    $("#addAttributeBtn").on("click", function () {
+      if (attributeCounter < 5) {
+        attributeCounter++;
+        $("#imageContainer").append(
+          '<div class="attribute" id="attribute_' +
+            attributeCounter +
+            '">Attribute ' +
+            attributeCounter +
+            ' <button class="removeAttributeBtn" data-id="' +
+            attributeCounter +
+            '">Remove</button></div>'
+        );
+      } else {
+        alert("Maximum 5 attributes allowed.");
+      }
+    });
+
+    // Function to remove attribute
+    $(document).on("click", ".removeAttributeBtn", function () {
+      var id = $(this).data("id");
+      $("#attribute_" + id).remove();
+      attributeCounter--;
+    });
+  });
+</script>
